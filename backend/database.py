@@ -1,23 +1,16 @@
 import sqlite3
-
-
 def connect_db():
-    conn = sqlite3.connect("attendance.db", check_same_thread=False)
+    conn = sqlite3.connect("attendance.data", check_same_thread=False)
     conn.row_factory = sqlite3.Row
     return conn
-
-
 def ensure_column(cur, table, column, definition):
     cur.execute(f"PRAGMA table_info({table})")
     existing = {row[1] for row in cur.fetchall()}
     if column not in existing:
         cur.execute(f"ALTER TABLE {table} ADD COLUMN {column} {definition}")
-
-
 def create_tables():
-    conn = connect_db()
+    conn=connect_db()
     cur = conn.cursor()
-
     cur.execute(
         """
         CREATE TABLE IF NOT EXISTS users (
@@ -45,7 +38,6 @@ def create_tables():
         )
         """
     )
-
     cur.execute("PRAGMA table_info(attendance)")
     attendance_columns = {row[1] for row in cur.fetchall()}
 
@@ -53,7 +45,6 @@ def create_tables():
         cur.execute("ALTER TABLE attendance RENAME COLUMN date TO attendance_date")
         attendance_columns.remove("date")
         attendance_columns.add("attendance_date")
-
     if "id" not in attendance_columns:
         cur.execute(
             """
@@ -91,5 +82,4 @@ def create_tables():
             ON attendance (usn, attendance_date, subject)
             """
         )
-
     conn.commit()
