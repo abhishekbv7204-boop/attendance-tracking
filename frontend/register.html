@@ -7,71 +7,71 @@
   <link rel="stylesheet" href="advanced.css">
 </head>
 <body data-page="register">
-  <main class="page-shell">
-    <section class="hero">
-      <div class="hero-panel">
-        <div class="eyebrow">New profile setup</div>
-        <h1 class="hero-title">Create a verified student profile in one pass.</h1>
-        <p class="hero-copy">
-          Register your identity, choose your college, and capture a clear facial image so the
-          platform can unlock a quicker attendance workflow every day.
-        </p>
-        <div class="pill-row">
-          <div class="feature-pill">
-            Better onboarding
-            <span>Collects identity, institution, and facial encoding together.</span>
-          </div>
-          <div class="feature-pill">
-            Update friendly
-            <span>Re-registering refreshes your profile instead of creating clutter.</span>
-          </div>
-          <div class="feature-pill">
-            Built for scale
-            <span>Structured records are ready for reporting and dashboard use.</span>
-          </div>
+<main class="page-shell">
+<section class="hero">
+<div class="hero-panel">
+  <div class="eyebrow">New profile setup</div>
+  <h1 class="hero-title">Create a verified student profile in one pass.</h1>
+  <p class="hero-copy">
+    Register your identity, choose your college, and capture a clear facial image so the
+    platform can unlock a quicker attendance workflow every day.
+  </p>
+<div class="pill-row">
+  <div class="feature-pill">
+    Better onboarding
+    <span>Collects identity, institution, and facial encoding together.</span>
+  </div>
+  <div class="feature-pill">
+    Update friendly
+    <span>Re-registering refreshes your profile instead of creating clutter.</span>
+</div>
+<div class="feature-pill">
+     span>Structured records are ready for reporting and dashboard use.</span>
+  </div>
+</div>
+</div>
+ Built for scale
+      
+  <div class="glass-card">
+    <h2 class="card-title">Register Student</h2>
+    <p class="card-copy">Use a clear face image and your official academic details.</p>
+    <div class="form-grid">
+      <input id="full_name" placeholder="Full name">
+      <input id="usn" placeholder="USN">
+      <input id="dob" type="date">
+      <input id="email" type="email" placeholder="College email">
+      <input id="college" list="college_options" placeholder="Type or choose your college">
+      <datalist id="college_options"></datalist>
+
+      <div class="camera-box">
+        <video id="video" autoplay muted playsinline></video>
+        <canvas id="canvas" hidden></canvas>
+        <div class="face-guide"></div>
+        <div class="camera-overlay">
+          Keep your full face inside the frame and stay 1 to 2 feet from the camera.
         </div>
       </div>
 
-      <div class="glass-card">
-        <h2 class="card-title">Register Student</h2>
-        <p class="card-copy">Use a clear face image and your official academic details.</p>
-        <div class="form-grid">
-          <input id="full_name" placeholder="Full name">
-          <input id="usn" placeholder="USN">
-          <input id="dob" type="date">
-          <input id="email" type="email" placeholder="College email">
-          <input id="college" list="college_options" placeholder="Type or choose your college">
-          <datalist id="college_options"></datalist>
-
-          <div class="camera-box">
-            <video id="video" autoplay muted playsinline></video>
-            <canvas id="canvas" hidden></canvas>
-            <div class="face-guide"></div>
-            <div class="camera-overlay">
-              Keep your full face inside the frame and stay 1 to 2 feet from the camera.
-            </div>
-          </div>
-
-          <div class="form-actions">
-            <button type="button" onclick="captureForPreview('register')">Capture Photo</button>
-            <button type="button" class="ghost-button" onclick="clearCapturedImage()">Retake</button>
-          </div>
-          <img id="captured_preview" class="captured-preview" alt="Captured preview">
-
-          <label class="upload-box" for="register_image">
-            Camera not working? Choose a clear face photo here
-          </label>
-          <input id="register_image" class="file-input" type="file" accept="image/*">
-
-          <div id="camera_status" class="status"></div>
-          <div id="register_status" class="status"></div>
-
-          <div class="form-actions">
-            <button onclick="register()">Register</button>
-            <button class="ghost-button" onclick="goLogin()">Back to login</button>
-          </div>
+        <div class="form-actions">
+          <button type="button" onclick="captureForPreview('register')">Capture Photo</button>
+          <button type="button" class="ghost-button" onclick="clearCapturedImage()">Retake</button>
         </div>
-      </div>
+        <img id="captured_preview" class="captured-preview" alt="Captured preview">
+
+        <label class="upload-box" for="register_image">
+          Camera not working? Choose a clear face photo here
+        </label>
+        <input id="register_image" class="file-input" type="file" accept="image/*">
+
+        <div id="camera_status" class="status"></div>
+        <div id="register_status" class="status"></div>
+
+        <div class="form-actions">
+          <button onclick="register()">Register</button>
+          <button class="ghost-button" onclick="goLogin()">Back to login</button>
+    </div>
+    </div>
+  </div>
     </section>
   </main>
 
