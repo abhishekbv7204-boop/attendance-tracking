@@ -1,7 +1,6 @@
 from datetime import date, datetime
 from io import BytesIO
 from pathlib import Path
-
 import numpy as np
 import pandas as pd
 import requests
@@ -15,9 +14,7 @@ app = Flask(__name__)
 CORS(app)
 create_tables()
 FRONTEND_DIR = Path(__file__).resolve().parent.parent / "frontend"
-
 FACE_MATCH_THRESHOLD = 0.68
-
 COLLEGE_FALLBACK = [
     "Indian Institute of Science",
     "Indian Institute of Technology Bombay",
@@ -30,17 +27,12 @@ COLLEGE_FALLBACK = [
     "St. Joseph's University",
     "Visvesvaraya Technological University",
     "Ballari Institute of Technology and Management",
+    "Siddaganga institute of technology and management",
 ]
-
-
 def json_error(message, status=400):
     return jsonify({"success": False, "message": message}), status
-
-
 def clean_text(value):
     return str(value or "").strip()
-
-
 def serialize_user(row):
     return {
         "usn": row["usn"],
@@ -51,21 +43,15 @@ def serialize_user(row):
         "created_at": row["created_at"],
     }
 
-
 @app.route("/health")
 def health():
     return jsonify({"success": True, "message": "Attendance API is running"})
-
-
 @app.route("/")
 def root():
     return send_from_directory(FRONTEND_DIR, "register.html")
-
-
 @app.route("/frontend/<path:filename>")
 def frontend_files(filename):
     return send_from_directory(FRONTEND_DIR, filename)
-
 @app.route("/colleges")
 def colleges():
     try:
@@ -120,18 +106,18 @@ def register():
     )
     conn.commit()
 
-    return jsonify(
-        {
-            "success": True,
-            "message": "Registration completed successfully.",
-            "user": {
-                "usn": payload[0],
-                "full_name": payload[1],
-                "email": payload[3],
-                "college": payload[4],
-            },
-        }
-    )
+return jsonify(
+{
+    "success": True,
+    "message": "Registration completed successfully.",
+    "user": {
+        "usn": payload[0],
+        "full_name": payload[1],
+        "email": payload[3],
+        "college": payload[4],
+    },
+}
+)
 
 @app.route("/login", methods=["POST"])
 def login():
@@ -172,7 +158,6 @@ def login():
             f"Face match failed. Try matching the same angle used during registration. Score: {distance:.3f}",
             401,
         )
-
     return jsonify(
         {
             "success": True,
@@ -181,14 +166,13 @@ def login():
             "match_score": round(max(0.0, 1 - distance), 3),
         }
     )
-
 @app.route("/dashboard")
 def dashboard():
     usn = clean_text(request.args.get("usn")).upper()
     if not usn:
         return json_error("USN is required.")
 
-    conn = connect_db()
+    conn=connect_db()
     cur = conn.cursor()
     cur.execute(
         """
@@ -326,39 +310,38 @@ def mark():
                 datetime.utcnow().isoformat(timespec="seconds"),
             ),
         )
-        conn.commit()
-    except Exception as exc:
-        if "UNIQUE constraint failed" in str(exc):
-            return json_error("Attendance already marked for this subject today.", 409)
-        raise
+conn.commit()
+except Exception as exc:
+if "UNIQUE constraint failed" in str(exc):
+    return json_error("Attendance already marked for this subject today.", 409)
+raise
 
-    return jsonify(
-        {
-            "success": True,
-            "message": f"Attendance marked for {subject}.",
-            "attendance_date": attendance_date,
-        }
-    )
+return jsonify(
+{
+    "success": True,
+    "message": f"Attendance marked for {subject}.",
+    "attendance_date": attendance_date,
+}
+)
 
 
 @app.route("/attendance")
 def attendance():
-    usn = clean_text(request.args.get("usn")).upper()
-    if not usn:
-        return json_error("USN is required.")
+usn = clean_text(request.args.get("usn")).upper()
+if not usn:
+return json_error("USN is required.")
 
-    conn = connect_db()
-    cur = conn.cursor()
-    cur.execute(
-        """
-        SELECT id, usn, subject, attendance_date, status, marked_at
-        FROM attendance
-        WHERE usn=?
-        ORDER BY attendance_date DESC, marked_at DESC
-        """,
-        (usn,),
-    )
-    return jsonify({"success": True, "records": [dict(row) for row in cur.fetchall()]})
-
+conn = connect_db()
+cur = conn.cursor()
+cur.execute(
+"""
+SELECT id, usn, subject, attendance_date, status, marked_at
+FROM attendance
+WHERE usn=?
+ORDER BY attendance_date DESC, marked_at DESC
+    """,
+    (usn,),
+)
+return jsonify({"success": True, "records": [dict(row) for row in cur.fetchall()]})
 if __name__ == "__main__":
     app.run(debug=True)
