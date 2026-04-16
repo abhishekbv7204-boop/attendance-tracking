@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AttendanceOS Dashboard</title>
+  <link rel="stylesheet" href="advanced.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body data-page="dashboard">
+  <main class="page-shell">
+    <header class="dashboard-header">
+      <div class="profile">
+        <div id="user_badge" class="profile-badge">AA</div>
+        <div>
+          <h1 id="profile_name">Attendance Dashboard</h1>
+          <p id="profile_meta">Verified student profile</p>
+        </div>
+      </div>
+      <div class="form-actions" style="width:min(320px,100%); margin-top:0;">
+        <button class="ghost-button" onclick="loadDashboard()">Refresh</button>
+        <button onclick="logout()">Logout</button>
+      </div>
+    </header>
+
+    <section class="metrics-grid">
+      <article class="stats-card">
+        <span class="stats-label">Total attendance entries</span>
+        <strong id="total_classes" class="stats-value">0</strong>
+      </article>
+      <article class="stats-card">
+        <span class="stats-label">Classes marked today</span>
+        <strong id="today_classes" class="stats-value">0</strong>
+      </article>
+      <article class="stats-card">
+        <span class="stats-label">Tracked subjects</span>
+        <strong id="tracked_subjects" class="stats-value">0</strong>
+      </article>
+      <article class="stats-card">
+        <span class="stats-label">Last sync</span>
+        <strong id="last_updated" class="stats-value" style="font-size:1rem;">-</strong>
+      </article>
+    </section>
+
+    <section class="dashboard-grid">
+      <aside class="dashboard-top">
+        <div class="glass-card">
+          <h2 class="card-title">Mark Attendance</h2>
+          <p class="card-copy">Select today's subject and save a single verified entry.</p>
+          <div class="form-grid">
+            <input id="subject" list="subject_options" placeholder="Enter subject name">
+            <datalist id="subject_options"></datalist>
+            <button onclick="markAttendance()">Mark Present</button>
+            <button class="ghost-button" onclick="downloadExcel()">Download My Excel Report</button>
+            <div id="dashboard_status" class="status"></div>
+          </div>
+          <p class="inline-note">
+            Duplicate attendance for the same subject on the same day is automatically blocked.
+          </p>
+        </div>
+      </aside>
+
+      <div class="dashboard-top">
+        <section class="chart-card">
+          <h2 class="card-title">Subject Analytics</h2>
+          <p class="card-copy">See where your attendance activity is concentrated.</p>
+          <div class="chart-wrap">
+            <canvas id="chart"></canvas>
+          </div>
+        </section>
+
+        <section class="table-card">
+          <h2 class="card-title">Recent Attendance</h2>
+          <p class="card-copy">Latest verified records linked to your student profile.</p>
+          <table>
+            <thead>
+              <tr>
+                <th>Subject</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Marked At</th>
+              </tr>
+            </thead>
+            <tbody id="attendance_rows">
+              <tr>
+                <td colspan="4">Loading attendance records...</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <script src="advanced.js"></script>
+</body>
+</html>
