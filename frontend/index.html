@@ -1,76 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AttendanceOS Login</title>
-  <link rel="stylesheet" href="advanced.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AttendanceOS Login</title>
+<link rel="stylesheet" href="advanced.css">
 </head>
 <body data-page="login">
-  <main class="page-shell">
-    <section class="hero">
-      <div class="hero-panel">
-        <div class="eyebrow">Face-secured campus operations</div>
-        <h1 class="hero-title">Attendance that feels modern, fast, and trustworthy.</h1>
-        <p class="hero-copy">
-          Sign in with your face, unlock your daily dashboard, and keep attendance records tidy
-          with one focused workflow built for students and admins.
-        </p>
-        <div class="pill-row">
-          <div class="feature-pill">
-            Smart login
-            <span>Face match plus identity fields for safer access.</span>
-          </div>
-          <div class="feature-pill">
-            Live analytics
-            <span>Track subjects, daily totals, and export-ready history.</span>
-          </div>
-          <div class="feature-pill">
-            Cleaner workflow
-            <span>Register, mark attendance, and review records in minutes.</span>
-          </div>
-        </div>
+<main class="page-shell">
+<section class="hero">
+<div class="hero-panel">
+<div class="eyebrow">Face-secured campus operations</div>
+<h1 class="hero-title">Attendance that feels modern, fast, and trustworthy.</h1>
+<p class="hero-copy">
+  Sign in with your face, unlock your daily dashboard, and keep attendance records tidy
+  with one focused workflow built for students and admins.
+</p>
+<div class="pill-row">
+  <div class="feature-pill">
+    Smart login
+    <span>Face match plus identity fields for safer access.</span>
+  </div>
+  <div class="feature-pill">
+    Live analytics
+    <span>Track subjects, daily totals, and export-ready history.</span>
+  </div>
+  <div class="feature-pill">
+    Cleaner workflow
+    <span>Register, mark attendance, and review records in minutes.</span>
+  </div>
+</div>
+</div>
+
+    <div class="glass-card">
+    <h2 class="card-title">Student Login</h2>
+    <p class="card-copy">Use the same details and face image you registered with.</p>
+    <div class="form-grid">
+    <input id="login_usn" placeholder="USN">
+    <input id="login_dob" type="date">
+    <input id="login_email" type="email" placeholder="College email">
+    
+    <div class="camera-box">
+      <video id="video" autoplay muted playsinline></video>
+      <canvas id="canvas" hidden></canvas>
+      <div class="camera-overlay">
+        Center your face,keep steady for a second,then continue.
       </div>
-
-      <div class="glass-card">
-        <h2 class="card-title">Student Login</h2>
-        <p class="card-copy">Use the same details and face image you registered with.</p>
-        <div class="form-grid">
-          <input id="login_usn" placeholder="USN">
-          <input id="login_dob" type="date">
-          <input id="login_email" type="email" placeholder="College email">
-
-          <div class="camera-box">
-            <video id="video" autoplay muted playsinline></video>
-            <canvas id="canvas" hidden></canvas>
-            <div class="camera-overlay">
-              Center your face, keep steady for a second, then continue.
-            </div>
-          </div>
-
-          <div class="form-actions">
-            <button type="button" onclick="captureForPreview('login')">Capture Photo</button>
-            <button type="button" class="ghost-button" onclick="clearCapturedImage()">Retake</button>
-          </div>
-          <img id="captured_preview" class="captured-preview" alt="Captured preview">
-
-          <label class="upload-box" for="login_image">
-            Camera not working? Choose a face photo here
-          </label>
-          <input id="login_image" class="file-input" type="file" accept="image/*">
-
-          <div id="camera_status" class="status"></div>
-          <div id="login_status" class="status"></div>
-
-          <div class="form-actions">
-            <button onclick="login()">Login</button>
-            <button class="ghost-button" onclick="goRegister()">Create account</button>
-          </div>
-        </div>
-      </div>
+    </div>
+    
+    <div class="form-actions">
+      <button type="button" onclick="captureForPreview('login')">Capture Photo</button>
+      <button type="button" class="ghost-button" onclick="clearCapturedImage()">Retake</button>
+    </div>
+    <img id="captured_preview" class="captured-preview" alt="Captured preview">
+    <label class="upload-box" for="login_image">
+      Camera not working? Choose a face photo here
+    </label>
+    <input id="login_image" class="file-input" type="file" accept="image/*">
+    <div id="camera_status" class="status"></div>
+    <div id="login_status" class="status"></div>
+    <div class="form-actions">
+      <button onclick="login()">Login</button>
+      <button class="ghost-button" onclick="goRegister()">Create account</button>
+    </div>
+    </div>
+    </div>
     </section>
-  </main>
-
-  <script src="advanced.js"></script>
-</body>
-</html>
+    </main>
+    <script src="advanced.js"></script>
+    </body>
+    </html>
