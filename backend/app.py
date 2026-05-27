@@ -10,7 +10,7 @@ from database import connect_db, create_tables
 from face_utils import get_encoding
 app = Flask(__name__)
 CORS(app)
-
+   
 create_tables()
 
 FRONTEND_DIR = Path(__file__).resolve().parent.parent / "frontend"
