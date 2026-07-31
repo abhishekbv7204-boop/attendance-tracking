@@ -28,7 +28,7 @@ COLLEGE_FALLBACK = [
 "Visvesvaraya Technological University",
 "Ballari Institute of technology and management",
 "Siddaganga Institute of Technology",
-    }
+]
 def json_error(message, status=400):
 return jsonify({"success": False, "message": message}), status
 def clean_text(value):
